@@ -111,28 +111,3 @@ User question
   Final answer
 ```
 
-Keeping the LLM out of writing raw SQL directly (it only picks an intent
-from a fixed set) keeps responses predictable and avoids SQL-injection-style
-risks from freeform generated queries.
-
-## Notes on the Vector Database Requirement
-
-This project's chatbot currently answers structured/aggregate questions
-(counts, averages, filtering by course) directly against the relational
-database, which doesn't require semantic/similarity search. If your
-use case is extended to include **semantic search over unstructured text**
-(e.g. searching free-text student notes, essays, or feedback), a vector
-database such as **ChromaDB** (lightweight, easy local setup, good for a
-capstone-scale project) would be added at that point to store embeddings
-and support similarity search, with Gemini used to summarize or answer
-using the retrieved text chunks.
-
-## Interview / Revision Notes
-
-- **Why modular structure?** Separates concerns (DB setup, models, schemas,
-  business logic, API routes) so the code is easier to test, maintain, and
-  extend.
-- **How are secrets managed?** Via a `.env` file loaded with `python-dotenv`,
-  never committed to version control.
-- **CRUD** = Create, Read, Update, Delete — the four core operations this
-  API implements for student records.
