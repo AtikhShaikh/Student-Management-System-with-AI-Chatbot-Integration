@@ -63,6 +63,6 @@ def delete_student(student_id: int, db: Session = Depends(get_db)):
 def chat(request: schemas.ChatRequest, db: Session = Depends(get_db)):
     try:
         answer = chatbot.ask_chatbot(db, request.question)
-    except RuntimeError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
     return schemas.ChatResponse(answer=answer)
